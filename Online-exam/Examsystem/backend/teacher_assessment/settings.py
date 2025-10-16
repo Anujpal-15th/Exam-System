@@ -75,12 +75,13 @@ WSGI_APPLICATION = 'teacher_assessment.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+#install postgres
+#open pgadmin-->on left side click on servers-->enter pass-->click on databases-->create database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'anuj',
-        'USER': 'anuj',
+        'NAME': 'apne_db_ka_naam_daal',
+        'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',
