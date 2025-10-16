@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -52,11 +52,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'teacher_assessment.urls'
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], # --> your HTML files here
+        'DIRS': [os.path.join(BASE_DIR,'..', 'frontend', 'templates')], # --> your HTML files here
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,20 +69,19 @@ TEMPLATES = [
 ]
 
 STATIC_URL = '/static/'
-STATICFLILES_DIRS = [BASE_DIR / 'static'] # --> your CSS, JS, images files here
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # --> your CSS, JS, images files here
 WSGI_APPLICATION = 'teacher_assessment.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-#install postgres
-#open pgadmin-->on left side click on servers-->enter pass-->click on databases-->create database
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'apne_db_ka_naam_daal',
+        'NAME': 'exam_system_db',
         'USER': 'postgres',
-        'PASSWORD': 'password',
+        'PASSWORD': 'admin1234',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -130,4 +129,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL='authentication.User'
+AUTH_USER_MODEL = 'authentication.User'
