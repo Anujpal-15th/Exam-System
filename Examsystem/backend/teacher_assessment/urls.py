@@ -19,7 +19,8 @@ from django.urls import path, include
 from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'), #
-    path('accounts/', include('authentication.urls')), # adds login/longout urls
+    
+
+    path('', include('authentication.urls')), # adds login/longout urls
     path('questions/', include('questions.urls')),
 ]
