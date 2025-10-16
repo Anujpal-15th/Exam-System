@@ -27,5 +27,5 @@ def student_dashboard(request):
     return render(request, 'questions/student_dashboard.html')
 
 @login_required
-def test_dashboard(request):
-    return render(request, 'questions/test_dashboard.html')
+def test_interface(request):
+    return render(request, 'questions/test_interface.html')

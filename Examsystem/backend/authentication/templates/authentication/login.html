@@ -36,10 +36,12 @@
                     </div>
                 </div>
                 
-                <form id="login-form" class="login-form">
+                <form id="login-form" class="login-form" method="POST" action="{% url 'login_user' %}">
+    {% csrf_token %}
+
                     <div class="form-group">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" class="form-control" required>
+                        <input type="email" id="email" class="form-control" name="email" required>
                     </div>
                     
                     <div class="form-group">
