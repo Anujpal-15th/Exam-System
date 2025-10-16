@@ -1,0 +1,888 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduExam - E-Assessment Platform</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="page active">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1><i class="fas fa-graduation-cap"></i> EduExam</h1>
+                    <p>E-Assessment Platform</p>
+                </div>
+                
+                <div class="role-selection">
+                    <h3>Select Your Role</h3>
+                    <div class="role-buttons">
+                        <button class="role-btn" data-role="student">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Student</span>
+                        </button>
+                        <button class="role-btn" data-role="teacher">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Teacher</span>
+                        </button>
+                        <button class="role-btn" data-role="admin">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Admin</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--full-width">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+                
+                <div class="demo-credentials">
+                    <h4>Demo Credentials:</h4>
+                    <div class="demo-cred">
+                        <strong>Student:</strong> ansh.kumar@student.edu / password
+                    </div>
+                    <div class="demo-cred">
+                        <strong>Teacher:</strong> rajesh.gupta@teacher.edu / password
+                    </div>
+                    <div class="demo-cred">
+                        <strong>Admin:</strong> admin@system.edu / password
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" class="page dashboard">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-graduation-cap"></i> EduExam</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <img id="student-avatar" src="" alt="Student" class="avatar">
+                    <span id="student-name">Student</span>
+                    <button id="student-logout" class="btn btn--secondary btn--sm">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-container">
+            <aside class="sidebar">
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-section="student-overview">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-link" data-section="available-tests">
+                        <i class="fas fa-clipboard-list"></i> Available Tests
+                    </a>
+                    <a href="#" class="nav-link" data-section="test-results">
+                        <i class="fas fa-chart-bar"></i> My Results
+                    </a>
+                    <a href="#" class="nav-link" data-section="test-schedule">
+                        <i class="fas fa-calendar"></i> My Schedule
+                    </a>
+                    <a href="#" class="nav-link" data-section="student-profile">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                </nav>
+            </aside>
+            
+            <main class="main-content">
+                <!-- Student Overview -->
+                <div id="student-overview" class="content-section active">
+                    <div class="welcome-section">
+                        <h2>Welcome back, <span id="welcome-name">Student</span>!</h2>
+                        <p>Here's what's happening with your studies today.</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="completed-tests">0</h3>
+                                <p>Tests Completed</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="pending-tests">0</h3>
+                                <p>Tests Pending</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="average-score">0%</h3>
+                                <p>Average Score</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="pass-rate">0%</h3>
+                                <p>Pass Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>Recent Test Results</h3>
+                        <div id="recent-results" class="results-list"></div>
+                    </div>
+                </div>
+                
+                <!-- Available Tests -->
+                <div id="available-tests" class="content-section">
+                    <h2>Available Tests</h2>
+                    <div id="tests-list" class="tests-grid"></div>
+                </div>
+                
+                <!-- Test Results -->
+                <div id="test-results" class="content-section">
+                    <h2>My Test Results</h2>
+                    <div id="results-list" class="results-table"></div>
+                </div>
+                
+                <!-- Test Schedule -->
+                <div id="test-schedule" class="content-section">
+                    <h2>My Schedule</h2>
+                    <div id="schedule-list" class="schedule-grid"></div>
+                </div>
+                
+                <!-- Student Profile -->
+                <div id="student-profile" class="content-section">
+                    <h2>My Profile</h2>
+                    <div class="profile-card">
+                        <div id="profile-info"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Test Taking Interface -->
+    <div id="test-interface" class="page">
+        <div class="test-header">
+            <div class="test-info">
+                <h2 id="test-title">Test Title</h2>
+                <p id="test-subject">Subject</p>
+            </div>
+            <div class="test-timer">
+                <i class="fas fa-clock"></i>
+                <span id="timer">00:00:00</span>
+            </div>
+        </div>
+        
+        <div class="test-container">
+            <aside class="question-nav">
+                <h3>Questions</h3>
+                <div id="question-grid" class="question-grid"></div>
+            </aside>
+            
+            <main class="question-area">
+                <div id="current-question" class="question-card">
+                    <div class="question-header">
+                        <span class="question-number">Question 1 of 10</span>
+                        <button class="flag-btn" id="flag-question">
+                            <i class="far fa-flag"></i> Flag
+                        </button>
+                    </div>
+                    <div class="question-content">
+                        <h3 id="question-text">Question text will appear here</h3>
+                        <div id="question-options" class="options-list"></div>
+                    </div>
+                    <div class="question-actions">
+                        <button class="btn btn--secondary" id="prev-question">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <button class="btn btn--secondary" id="next-question">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="btn btn--primary" id="submit-test" style="display: none;">
+                            <i class="fas fa-paper-plane"></i> Submit Test
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Teacher Dashboard -->
+    <div id="teacher-dashboard" class="page dashboard">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-graduation-cap"></i> EduExam</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <img id="teacher-avatar" src="" alt="Teacher" class="avatar">
+                    <span id="teacher-name">Teacher</span>
+                    <button id="teacher-logout" class="btn btn--secondary btn--sm">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-container">
+            <aside class="sidebar">
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-section="teacher-overview">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-link" data-section="add-questions">
+                        <i class="fas fa-plus-circle"></i> Add Questions
+                    </a>
+                    <a href="#" class="nav-link" data-section="create-test">
+                        <i class="fas fa-file-plus"></i> Create Test
+                    </a>
+                    <a href="#" class="nav-link" data-section="schedule-test">
+                        <i class="fas fa-calendar-plus"></i> Schedule Test
+                    </a>
+                    <a href="#" class="nav-link" data-section="view-performance">
+                        <i class="fas fa-chart-line"></i> View Performance
+                    </a>
+                    <a href="#" class="nav-link" data-section="question-bank">
+                        <i class="fas fa-database"></i> Question Bank
+                    </a>
+                </nav>
+            </aside>
+            
+            <main class="main-content">
+                <!-- Teacher Overview -->
+                <div id="teacher-overview" class="content-section active">
+                    <div class="welcome-section">
+                        <h2>Welcome, <span id="teacher-welcome-name">Teacher</span>!</h2>
+                        <p>Manage your tests and track student performance.</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="total-students">0</h3>
+                                <p>Total Students</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="active-tests">0</h3>
+                                <p>Active Tests</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="class-average">0%</h3>
+                                <p>Class Average</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="question-count">0</h3>
+                                <p>Questions Created</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>Recent Test Results</h3>
+                        <div id="teacher-recent-results" class="results-table"></div>
+                    </div>
+                </div>
+                
+                <!-- Add Questions -->
+                <div id="add-questions" class="content-section">
+                    <h2>Add New Question</h2>
+                    <form id="question-form" class="question-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select id="question-subject" class="form-control" required>
+                                    <option value="">Select Subject</option>
+                                    <option value="Data Structures">Data Structures</option>
+                                    <option value="Database Systems">Database Systems</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="Algorithms">Algorithms</option>
+                                    <option value="Programming">Programming</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Question Type</label>
+                                <select id="question-type" class="form-control" required>
+                                    <option value="">Select Type</option>
+                                    <option value="MCQ">Multiple Choice</option>
+                                    <option value="True/False">True/False</option>
+                                    <option value="Short Answer">Short Answer</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Difficulty</label>
+                                <select id="question-difficulty" class="form-control" required>
+                                    <option value="">Select Difficulty</option>
+                                    <option value="Easy">Easy</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Hard">Hard</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Question Text</label>
+                            <textarea id="question-text" class="form-control" rows="4" required></textarea>
+                        </div>
+                        
+                        <div id="mcq-options" class="options-section" style="display: none;">
+                            <label class="form-label">Answer Options</label>
+                            <div class="options-list">
+                                <div class="option-item">
+                                    <input type="text" class="form-control" placeholder="Option A" required>
+                                    <input type="radio" name="correct-answer" value="0">
+                                </div>
+                                <div class="option-item">
+                                    <input type="text" class="form-control" placeholder="Option B" required>
+                                    <input type="radio" name="correct-answer" value="1">
+                                </div>
+                                <div class="option-item">
+                                    <input type="text" class="form-control" placeholder="Option C" required>
+                                    <input type="radio" name="correct-answer" value="2">
+                                </div>
+                                <div class="option-item">
+                                    <input type="text" class="form-control" placeholder="Option D" required>
+                                    <input type="radio" name="correct-answer" value="3">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="tf-options" class="options-section" style="display: none;">
+                            <label class="form-label">Correct Answer</label>
+                            <div class="tf-options">
+                                <label>
+                                    <input type="radio" name="tf-answer" value="true" required>
+                                    True
+                                </label>
+                                <label>
+                                    <input type="radio" name="tf-answer" value="false">
+                                    False
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary">
+                            <i class="fas fa-save"></i> Save Question
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Create Test -->
+                <div id="create-test" class="content-section">
+                    <h2>Create New Test</h2>
+                    <form id="test-form" class="test-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Test Name</label>
+                                <input type="text" id="test-name" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select id="test-subject" class="form-control" required>
+                                    <option value="">Select Subject</option>
+                                    <option value="Data Structures">Data Structures</option>
+                                    <option value="Database Systems">Database Systems</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="Algorithms">Algorithms</option>
+                                    <option value="Programming">Programming</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Duration (minutes)</label>
+                                <input type="number" id="test-duration" class="form-control" min="15" max="240" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Pass Marks (%)</label>
+                                <input type="number" id="test-pass-marks" class="form-control" min="0" max="100" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea id="test-description" class="form-control" rows="3"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary">
+                            <i class="fas fa-plus"></i> Create Test
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Schedule Test -->
+                <div id="schedule-test" class="content-section">
+                    <h2>Schedule Test</h2>
+                    <form id="schedule-form" class="schedule-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Select Test</label>
+                                <select id="schedule-test-select" class="form-control" required>
+                                    <option value="">Select Test</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <input type="date" id="schedule-date" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Time</label>
+                                <input type="time" id="schedule-time" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Class/Group</label>
+                                <select id="schedule-class" class="form-control" required>
+                                    <option value="">Select Class</option>
+                                    <option value="BTech CSE - 5th Semester">BTech CSE - 5th Semester</option>
+                                    <option value="BTech IT - 3rd Semester">BTech IT - 3rd Semester</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary">
+                            <i class="fas fa-calendar-plus"></i> Schedule Test
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- View Performance -->
+                <div id="view-performance" class="content-section">
+                    <h2>Student Performance</h2>
+                    <div class="performance-filters">
+                        <select id="performance-test-filter" class="form-control">
+                            <option value="">All Tests</option>
+                        </select>
+                        <select id="performance-class-filter" class="form-control">
+                            <option value="">All Classes</option>
+                            <option value="BTech CSE - 5th Semester">BTech CSE - 5th Semester</option>
+                            <option value="BTech IT - 3rd Semester">BTech IT - 3rd Semester</option>
+                        </select>
+                    </div>
+                    <div id="performance-results" class="performance-table"></div>
+                </div>
+                
+                <!-- Question Bank -->
+                <div id="question-bank" class="content-section">
+                    <h2>Question Bank</h2>
+                    <div class="question-filters">
+                        <select id="bank-subject-filter" class="form-control">
+                            <option value="">All Subjects</option>
+                            <option value="Data Structures">Data Structures</option>
+                            <option value="Database Systems">Database Systems</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Algorithms">Algorithms</option>
+                            <option value="Programming">Programming</option>
+                        </select>
+                        <select id="bank-difficulty-filter" class="form-control">
+                            <option value="">All Difficulties</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                    </div>
+                    <div id="question-bank-list" class="questions-list"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="page dashboard">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-graduation-cap"></i> EduExam</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <img id="admin-avatar" src="" alt="Admin" class="avatar">
+                    <span id="admin-name">Admin</span>
+                    <button id="admin-logout" class="btn btn--secondary btn--sm">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-container">
+            <aside class="sidebar">
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-section="admin-overview">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-link" data-section="user-management">
+                        <i class="fas fa-users"></i> User Management
+                    </a>
+                    <a href="#" class="nav-link" data-section="test-management">
+                        <i class="fas fa-clipboard-list"></i> Test Management
+                    </a>
+                    <a href="#" class="nav-link" data-section="student-management">
+                        <i class="fas fa-user-graduate"></i> Student Management
+                    </a>
+                    <a href="#" class="nav-link" data-section="teacher-management">
+                        <i class="fas fa-chalkboard-teacher"></i> Teacher Management
+                    </a>
+                    <a href="#" class="nav-link" data-section="system-analytics">
+                        <i class="fas fa-chart-pie"></i> System Analytics
+                    </a>
+                    <a href="#" class="nav-link" data-section="system-settings">
+                        <i class="fas fa-cogs"></i> Settings
+                    </a>
+                </nav>
+            </aside>
+            
+            <main class="main-content">
+                <!-- Admin Overview -->
+                <div id="admin-overview" class="content-section active">
+                    <div class="welcome-section">
+                        <h2>System Overview</h2>
+                        <p>Manage and monitor the entire e-assessment platform.</p>
+                    </div>
+                    
+                    <div class="stats-grid admin-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="admin-total-students">1250</h3>
+                                <p>Total Students</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="admin-total-teachers">85</h3>
+                                <p>Total Teachers</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="admin-active-tests">12</h3>
+                                <p>Active Tests</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="admin-completed-tests">156</h3>
+                                <p>Completed Tests</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="admin-total-questions">2840</h3>
+                                <p>Total Questions</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="admin-average-score">78.5%</h3>
+                                <p>Average Score</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="admin-pass-rate">82.3%</h3>
+                                <p>Pass Rate</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="admin-growth">+12%</h3>
+                                <p>Monthly Growth</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-charts">
+                        <div class="chart-container">
+                            <h3>Test Performance Trends</h3>
+                            <canvas id="performance-chart" width="400" height="200"></canvas>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>User Activity</h3>
+                            <canvas id="activity-chart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- User Management -->
+                <div id="user-management" class="content-section">
+                    <h2>User Management</h2>
+                    <div class="management-header">
+                        <button class="btn btn--primary" id="add-user-btn">
+                            <i class="fas fa-plus"></i> Add New User
+                        </button>
+                        <div class="search-filter">
+                            <input type="text" class="form-control" placeholder="Search users..." id="user-search">
+                            <select class="form-control" id="user-role-filter">
+                                <option value="">All Roles</option>
+                                <option value="student">Students</option>
+                                <option value="teacher">Teachers</option>
+                                <option value="admin">Admins</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="users-table" class="data-table"></div>
+                </div>
+                
+                <!-- Test Management -->
+                <div id="test-management" class="content-section">
+                    <h2>Test Management</h2>
+                    <div class="management-header">
+                        <div class="search-filter">
+                            <input type="text" class="form-control" placeholder="Search tests..." id="test-search">
+                            <select class="form-control" id="test-status-filter">
+                                <option value="">All Status</option>
+                                <option value="Available">Available</option>
+                                <option value="Scheduled">Scheduled</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="admin-tests-table" class="data-table"></div>
+                </div>
+                
+                <!-- Student Management -->
+                <div id="student-management" class="content-section">
+                    <h2>Student Management</h2>
+                    <div class="management-header">
+                        <button class="btn btn--primary" id="add-student-btn">
+                            <i class="fas fa-plus"></i> Add New Student
+                        </button>
+                        <div class="search-filter">
+                            <input type="text" class="form-control" placeholder="Search students..." id="student-search">
+                            <select class="form-control" id="student-class-filter">
+                                <option value="">All Classes</option>
+                                <option value="BTech CSE - 5th Semester">BTech CSE - 5th Semester</option>
+                                <option value="BTech IT - 3rd Semester">BTech IT - 3rd Semester</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="admin-students-table" class="data-table"></div>
+                </div>
+                
+                <!-- Teacher Management -->
+                <div id="teacher-management" class="content-section">
+                    <h2>Teacher Management</h2>
+                    <div class="management-header">
+                        <button class="btn btn--primary" id="add-teacher-btn">
+                            <i class="fas fa-plus"></i> Add New Teacher
+                        </button>
+                        <div class="search-filter">
+                            <input type="text" class="form-control" placeholder="Search teachers..." id="teacher-search">
+                            <select class="form-control" id="teacher-subject-filter">
+                                <option value="">All Subjects</option>
+                                <option value="Data Structures">Data Structures</option>
+                                <option value="Database Systems">Database Systems</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Algorithms">Algorithms</option>
+                                <option value="Programming">Programming</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="admin-teachers-table" class="data-table"></div>
+                </div>
+                
+                <!-- System Analytics -->
+                <div id="system-analytics" class="content-section">
+                    <h2>System Analytics</h2>
+                    <div class="analytics-grid">
+                        <div class="chart-container">
+                            <h3>Monthly Test Statistics</h3>
+                            <canvas id="monthly-tests-chart" width="400" height="300"></canvas>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>Subject-wise Performance</h3>
+                            <canvas id="subject-performance-chart" width="400" height="300"></canvas>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>User Registration Trends</h3>
+                            <canvas id="registration-chart" width="400" height="300"></canvas>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>System Usage</h3>
+                            <canvas id="usage-chart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Settings -->
+                <div id="system-settings" class="content-section">
+                    <h2>System Settings</h2>
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <h3>General Settings</h3>
+                            <div class="settings-content">
+                                <div class="form-group">
+                                    <label class="form-label">Platform Name</label>
+                                    <input type="text" class="form-control" value="EduExam">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Default Test Duration</label>
+                                    <input type="number" class="form-control" value="90">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Auto-save Interval (seconds)</label>
+                                    <input type="number" class="form-control" value="30">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <h3>Security Settings</h3>
+                            <div class="settings-content">
+                                <div class="form-group">
+                                    <label class="form-label">Session Timeout (minutes)</label>
+                                    <input type="number" class="form-control" value="120">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Max Login Attempts</label>
+                                    <input type="number" class="form-control" value="3">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password Minimum Length</label>
+                                    <input type="number" class="form-control" value="8">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <h3>Notification Settings</h3>
+                            <div class="settings-content">
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" checked>
+                                        Email notifications for new tests
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" checked>
+                                        SMS reminders for scheduled tests
+                                    </label>
+                                    <label>
+                                        <input type="checkbox">
+                                        Weekly performance reports
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <h3>Backup &amp; Maintenance</h3>
+                            <div class="settings-content">
+                                <button class="btn btn--secondary">
+                                    <i class="fas fa-download"></i> Export All Data
+                                </button>
+                                <button class="btn btn--secondary">
+                                    <i class="fas fa-upload"></i> Import Data
+                                </button>
+                                <button class="btn btn--outline">
+                                    <i class="fas fa-sync"></i> System Maintenance
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'app.js' %}"></script>
+</body>
+</html>
