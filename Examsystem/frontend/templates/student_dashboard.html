@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" class="page dashboard">
+        <div class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-graduation-cap"></i> EduExam</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <img id="student-avatar" src="" alt="Student" class="avatar">
+                    <span id="student-name">Student</span>
+                    <button id="student-logout" class="btn btn--secondary btn--sm">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-container">
+            <aside class="sidebar">
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-section="student-overview">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="nav-link" data-section="available-tests">
+                        <i class="fas fa-clipboard-list"></i> Available Tests
+                    </a>
+                    <a href="#" class="nav-link" data-section="test-results">
+                        <i class="fas fa-chart-bar"></i> My Results
+                    </a>
+                    <a href="#" class="nav-link" data-section="test-schedule">
+                        <i class="fas fa-calendar"></i> My Schedule
+                    </a>
+                    <a href="#" class="nav-link" data-section="student-profile">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                </nav>
+            </aside>
+            
+            <main class="main-content">
+                <!-- Student Overview -->
+                <div id="student-overview" class="content-section active">
+                    <div class="welcome-section">
+                        <h2>Welcome back, <span id="welcome-name">Student</span>!</h2>
+                        <p>Here's what's happening with your studies today.</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="completed-tests">0</h3>
+                                <p>Tests Completed</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="pending-tests">0</h3>
+                                <p>Tests Pending</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="average-score">0%</h3>
+                                <p>Average Score</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="pass-rate">0%</h3>
+                                <p>Pass Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>Recent Test Results</h3>
+                        <div id="recent-results" class="results-list"></div>
+                    </div>
+                </div>
+                
+                <!-- Available Tests -->
+                <div id="available-tests" class="content-section">
+                    <h2>Available Tests</h2>
+                    <div id="tests-list" class="tests-grid"></div>
+                </div>
+                
+                <!-- Test Results -->
+                <div id="test-results" class="content-section">
+                    <h2>My Test Results</h2>
+                    <div id="results-list" class="results-table"></div>
+                </div>
+                
+                <!-- Test Schedule -->
+                <div id="test-schedule" class="content-section">
+                    <h2>My Schedule</h2>
+                    <div id="schedule-list" class="schedule-grid"></div>
+                </div>
+                
+                <!-- Student Profile -->
+                <div id="student-profile" class="content-section">
+                    <h2>My Profile</h2>
+                    <div class="profile-card">
+                        <div id="profile-info"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    </body>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'app.js' %}"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 
-class User(AbstractUser):
+class CustomUser(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
 

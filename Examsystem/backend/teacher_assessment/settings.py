@@ -56,7 +56,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'..', 'frontend', 'templates')], # --> your HTML files here
+        'DIRS': [os.path.join(BASE_DIR,'..', 'frontend', 'templates'),
+                 os.path.join(BASE_DIR, 'authentication', 'templates', 'authentication'),
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,10 +125,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, '..', 'frontend', 'static','css'), os.path.join(BASE_DIR, '..', 'frontend', 'static','js'), os.path.join(BASE_DIR, '..', 'frontend', 'static','images')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '..', 'frontend', 'static', 'css'),
+                    os.path.join(BASE_DIR, '..', 'frontend', 'static', 'js'),
+                    os.path.join(BASE_DIR, '..', 'frontend', 'static', 'images')]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'authentication.User'
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
